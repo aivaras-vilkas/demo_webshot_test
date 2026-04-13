@@ -8,6 +8,7 @@ on:
     branches: [ main, master ]
   pull_request:
     branches: [ main, master ]
+
 jobs:
   update-snapshots:
     runs-on: ubuntu-latest
@@ -28,13 +29,21 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
 
+      # ⭐ REQUIRED: authenticate git with the GitHub token
+      - name: Configure Git for pushing
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+
       - name: Update snapshots
         run: npx playwright test --update-snapshots
 
+      # ⭐ REQUIRED: pull + rebase before pushing
       - name: Commit updated snapshots
         run: |
-          git config user.name "github-actions"
-          git config user.email "github-actions@github.com"
+          git fetch origin main
+          git rebase origin/main || git rebase --skip
           git add .
           git commit -m "Update Linux snapshots" || echo "No changes to commit"
           git push
