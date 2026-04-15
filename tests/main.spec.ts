@@ -63,11 +63,13 @@ test('Recently view product is added to the list', async ({ page }) => {
   await main.goToHomepage();
 
   await expect(main.firstProductGrid.first()).toBeVisible();
-  const firstProductGridName = await main.firstProductGrid.first().innerText();
+  const firstProductGridName = (await main.firstProductGrid.first().innerText()).trim();
   await main.firstProductGrid.first().click();
   await main.goToHomepage();
 
-  const recentlyViewedFirstProductName = await main.recentlyViewedFirstProduct.innerText();
+  const recentlyViewedFirstProductName = (await main.recentlyViewedFirstProduct.innerText()).trim();
   await expect(recentlyViewedFirstProductName).toBe(firstProductGridName);
+  console.log('Recently viewed product name:', recentlyViewedFirstProductName);
+  console.log('First product grid name:', firstProductGridName);
 });
 
