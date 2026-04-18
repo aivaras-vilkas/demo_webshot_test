@@ -73,3 +73,59 @@ test('Recently view product is added to the list', async ({ page }) => {
   console.log('First product grid name:', firstProductGridName);
 });
 
+test('Books category navigation', async ({ page }) => {
+  const main = new MainPage(page);
+  await main.goToHomepage();
+
+  await main.goToCategory('books');
+  await expect(main.page).toHaveURL('/books');
+});
+
+test('Computers category navigation', async ({ page }) => {
+  const main = new MainPage(page);
+  await main.goToHomepage();
+
+  await main.goToCategory('computers');
+  await expect(main.page).toHaveURL('/computers');
+});
+
+test('Electronics category navigation', async ({ page }) => {
+  const main = new MainPage(page);
+  await main.goToHomepage();
+
+  await main.goToCategory('electronics');
+  await expect(main.page).toHaveURL('/electronics');
+});
+
+test('Apparel & Shoes category navigation', async ({ page }) => {
+  const main = new MainPage(page);
+  await main.goToHomepage();
+
+  await main.goToCategory('apparel-shoes');
+  await expect(main.page).toHaveURL('/apparel-shoes');
+});
+
+test('Digital Downloads category navigation', async ({ page }) => {
+  const main = new MainPage(page);
+  await main.goToHomepage();
+
+  await main.goToCategory('digital-downloads');
+  await expect(main.page).toHaveURL('/digital-downloads');
+});
+
+test('Jewelry category navigation', async ({ page }) => {
+  const main = new MainPage(page);
+  await main.goToHomepage();
+
+  await main.goToCategory('jewelry');
+  await expect(main.page).toHaveURL('/jewelry');
+});
+
+test('Gift Cards category navigation', async ({ page }) => {
+  const main = new MainPage(page);
+  await main.goToHomepage();
+
+  await main.goToCategory('gift-cards');
+  await expect(main.page).toHaveURL('/gift-cards');
+});
+

@@ -10,8 +10,15 @@ export class MainPage {
   public pagePoolGoodOption;
   public recentlyViewedFirstProduct;
   public firstProductGrid;
+  public categoriesBooks;
+  public categoriesComputers;
+  public categoriesElectronics;
+  public categoriesApparelShoes;
+  public categoriesDigitalDownloads;
+  public categoriesJewelry;
+  public categoriesGiftCards;
   
-  constructor(private page: Page) {
+  constructor(public page: Page) {
     this.subscribeEmailField = this.page.locator('#newsletter-email');
     this.subscribeButton = this.page.locator('#newsletter-subscribe-button');
     this.subscribeSuccessMessage = this.page.locator('.newsletter-result-block');
@@ -21,9 +28,44 @@ export class MainPage {
     this.pagePoolGoodOption = this.page.locator('[name="pollanswers-1"][value="2"]');
     this.recentlyViewedFirstProduct = this.page.locator('.block-recently-viewed-products li'); //.first()
     this.firstProductGrid = this.page.locator('.home-page-product-grid .product-title a'); //.first()
+    this.categoriesBooks = this.page.locator('.block-category-navigation a[href="/books"]');
+    this.categoriesComputers = this.page.locator('.block-category-navigation a[href="/computers"]');
+    this.categoriesElectronics = this.page.locator('.block-category-navigation a[href="/electronics"]');
+    this.categoriesApparelShoes = this.page.locator('.block-category-navigation a[href="/apparel-shoes"]');
+    this.categoriesDigitalDownloads = this.page.locator('.block-category-navigation a[href="/digital-downloads"]');
+    this.categoriesJewelry = this.page.locator('.block-category-navigation a[href="/jewelry"]');
+    this.categoriesGiftCards = this.page.locator('.block-category-navigation a[href="/gift-cards"]');
   }
 
   async goToHomepage() {  
     await this.page.goto('/');
+  }
+
+  async goToCategory(category: string) {
+    switch (category.toLowerCase()) {
+      case 'books':
+        await this.categoriesBooks.click();
+        break;
+      case 'computers':
+        await this.categoriesComputers.click();
+        break;
+      case 'electronics':
+        await this.categoriesElectronics.click();
+        break;
+      case 'apparel-shoes':
+        await this.categoriesApparelShoes.click();
+        break;
+      case 'digital-downloads':
+        await this.categoriesDigitalDownloads.click();
+        break;
+      case 'jewelry':
+        await this.categoriesJewelry.click();
+        break;
+      case 'gift-cards':
+        await this.categoriesGiftCards.click();
+        break;
+      default:
+        throw new Error(`Category not found: ${category}`);
+    }
   }
 }
